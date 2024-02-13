@@ -1,0 +1,51 @@
+-- Primera tabla: PRODUCTOS
+START TRANSACTION;
+
+-- Si la tabla PRODUCTOS tiene registros, eliminamos algunos
+-- En este caso, eliminaremos los productos con ID_Producto 504 y 505
+-- Si quisieras insertar registros en lugar de eliminar, comenta estas líneas y descomenta las siguientes
+
+-- DELETE FROM PRODUCTOS WHERE ID_Producto = 504;
+-- DELETE FROM PRODUCTOS WHERE ID_Producto = 505;
+
+-- Sentencia Rollback (comentada)
+-- ROLLBACK;
+
+-- Sentencia Commit (comentada)
+-- COMMIT;
+
+-- Segunda tabla: PEDIDOS
+START TRANSACTION;
+
+-- Insertamos ocho nuevos registros
+INSERT INTO PEDIDOS (ID_Pedido, ID_Cliente, Fecha, Otros_Detalles) VALUES
+    (811, 301, '2024-01-16', 'Nuevo pedido 1'),
+    (812, 302, '2024-01-17', 'Nuevo pedido 2'),
+    (813, 303, '2024-01-18', 'Nuevo pedido 3'),
+    (814, 304, '2024-01-19', 'Nuevo pedido 4'),
+    (815, 305, '2024-01-20', 'Nuevo pedido 5'),
+    (816, 306, '2024-01-21', 'Nuevo pedido 6'),
+    (817, 307, '2024-01-22', 'Nuevo pedido 7'),
+    (818, 308, '2024-01-23', 'Nuevo pedido 8');
+
+-- Savepoint después de la inserción del registro #4
+SAVEPOINT sp_despues_registro_4;
+
+-- Insertamos otros cuatro registros más
+INSERT INTO PEDIDOS (ID_Pedido, ID_Cliente, Fecha, Otros_Detalles) VALUES
+    (819, 309, '2024-01-24', 'Nuevo pedido 9'),
+    (820, 310, '2024-01-25', 'Nuevo pedido 10'),
+    (821, 301, '2024-01-26', 'Nuevo pedido 11'),
+    (822, 302, '2024-01-27', 'Nuevo pedido 12');
+
+-- Savepoint después de la inserción del registro #8
+SAVEPOINT sp_despues_registro_8;
+
+-- Sentencia de eliminación del savepoint de los primeros 4 registros insertados (comentada)
+-- RELEASE SAVEPOINT sp_despues_registro_4;
+
+-- Sentencia Rollback (comentada)
+-- ROLLBACK;
+
+-- Sentencia Commit (comentada)
+-- COMMIT;
